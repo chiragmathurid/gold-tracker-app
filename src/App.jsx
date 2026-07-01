@@ -67,12 +67,12 @@ export default function App() {
         {goldPrices && (
           <div className="mt-8 p-5 bg-white rounded-2xl border border-gray-100 text-sm text-gray-500">
             <p className="font-medium text-gray-700 mb-1">How are these prices calculated?</p>
-            <p>All prices include a <strong className="text-gray-700">11.5% making/handling charge</strong> applied on top of the live 24K spot rate:</p>
+            <p>All prices include a <strong className="text-gray-700">16.5% duties and taxes (in Jaipur)</strong> applied on top of the live 24K spot rate:</p>
             <code className="block mt-2 bg-gray-50 border border-gray-200 rounded-lg px-4 py-2 text-gray-700">
               Final Price = (N ÷ 24) × 24K spot price × 1.115
             </code>
             <p className="mt-2">
-              Example: 22K gold = (22 ÷ 24) × 24K price × 1.115 = 91.67% of pure gold + 11.5% charges.
+              Example: 22K gold = (22 ÷ 24) × 24K price × 1.115 = 91.67% of pure gold + 16.5% charges.
             </p>
           </div>
         )}

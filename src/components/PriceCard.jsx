@@ -19,7 +19,7 @@ export default function PriceCard({ Karat, label, price, purity, isPure = false 
 
         {/* ── Markup badge ── */}
         <span className="text-xs text-emerald-600 bg-emerald-50 border border-emerald-200 px-2 py-0.5 rounded-full font-medium">
-          +11.5% incl.
+          +16.5% incl.
         </span>
       </div>
 
@@ -30,7 +30,7 @@ export default function PriceCard({ Karat, label, price, purity, isPure = false 
       </p>
 
       <p className="text-xs text-gray-400 mt-1">
-        per gram · {purity} pure · incl. 11.5% charges
+        per gram · {purity} pure · incl. 16.5% charges
       </p>
 
       {!isPure && (

@@ -4,9 +4,9 @@ import { useState, useEffect, useCallback } from 'react';
 import { fetchMetalPrice } from '../services/goldApi';
 
 const REFRESH_INTERVAL = 5 * 60 * 1000;
-const MARKUP_PERCENT = 11.5; // ← ADD THIS
+const MARKUP_PERCENT = 16.5;
 
-// Helper: apply 11.5% markup to a raw price
+// Helper: apply 16.5% markup to a raw price
 function withMarkup(price) {
   return price * (1 + MARKUP_PERCENT / 100);
 }
