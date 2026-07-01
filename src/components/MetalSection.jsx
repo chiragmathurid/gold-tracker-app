@@ -1,5 +1,3 @@
-// src/components/MetalSection.jsx
-
 import PriceCard from './PriceCard';
 
 export default function MetalSection({ title, emoji, prices, accentClass }) {
