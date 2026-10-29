@@ -17,7 +17,7 @@ export default function App() {
           {lastUpdated ? (
             <span>
               Last updated: <strong className="text-gray-700">{lastUpdated.toLocaleTimeString()}</strong>
-              <span className="ml-2 text-xs text-gray-400">(auto-refreshes every 5 min)</span>
+              <span className="ml-2 text-xs text-gray-400">(updates live)</span>
             </span>
           ) : (
             <span>Loading prices for the first time...</span>
@@ -28,7 +28,7 @@ export default function App() {
             disabled={loading}
             className="flex items-center gap-2 bg-yellow-500 hover:bg-yellow-600 disabled:bg-gray-300 text-white text-sm font-medium px-4 py-2 rounded-lg transition-colors"
           >
-            {loading ? 'Refreshing...' : '↻ Refresh Now'}
+            {loading ? 'Connecting...' : '↻ Reconnect'}
           </button>
         </div>
 
@@ -49,6 +49,7 @@ export default function App() {
             title="Gold Prices"
             emoji="🥇"
             prices={goldPrices}
+            unit="per 10 g"
             accentClass="text-yellow-700"
           />
         )}
@@ -59,6 +60,7 @@ export default function App() {
             title="Silver Prices"
             emoji="🥈"
             prices={silverPrices}
+            unit="per kg"
             accentClass="text-gray-600"
           />
         )}
@@ -67,18 +69,18 @@ export default function App() {
         {goldPrices && (
           <div className="mt-8 p-5 bg-white rounded-2xl border border-gray-100 text-sm text-gray-500">
             <p className="font-medium text-gray-700 mb-1">How are these prices calculated?</p>
-            <p>All prices include a <strong className="text-gray-700">16.5% duties and taxes (in Jaipur)</strong> applied on top of the live 24K spot rate:</p>
+            <p>The 24 carat rate is the live <strong className="text-gray-700">GOLD RTGS 99.50</strong> sell rate, and the pure silver rate is the live <strong className="text-gray-700">Silver .999 RTGS</strong> sell rate.</p>
             <code className="block mt-2 bg-gray-50 border border-gray-200 rounded-lg px-4 py-2 text-gray-700">
-              Final Price = (N ÷ 24) × 24K spot price × 1.115
+              N carat gold = 24 carat rate ÷ 24 × N
             </code>
             <p className="mt-2">
-              Example: 22K gold = (22 ÷ 24) × 24K price × 1.115 = 91.67% of pure gold + 16.5% charges.
+              Example: 18 carat gold = 1,45,779 ÷ 24 × 18 = ₹1,09,334.25 per 10 g. 92.5 silver = .999 rate × 92.5%.
             </p>
           </div>
         )}
 
         <p className="text-center text-xs text-gray-400 mt-8">
-          Prices powered by GoldAPI.io · For reference only, not financial advice
+          Rates sourced from Lawat Jewellers live rates · For reference only, not financial advice
         </p>
       </main>
     </div>

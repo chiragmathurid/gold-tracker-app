@@ -1,4 +1,4 @@
-export default function PriceCard({ Karat, label, price, purity, isPure = false }) {
+export default function PriceCard({ carat, label, price, purity, unit, note, isPure = false }) {
   const formatted = price.toLocaleString('en-IN', {
     maximumFractionDigits: 2,
     minimumFractionDigits: 2,
@@ -14,12 +14,7 @@ export default function PriceCard({ Karat, label, price, purity, isPure = false 
         <span className={`inline-block text-xs font-semibold px-2 py-0.5 rounded-full ${
           isPure ? 'bg-yellow-200 text-yellow-800' : 'bg-gray-100 text-gray-600'
         }`}>
-          {Karat}
-        </span>
-
-        {/* ── Markup badge ── */}
-        <span className="text-xs text-emerald-600 bg-emerald-50 border border-emerald-200 px-2 py-0.5 rounded-full font-medium">
-          +16.5% incl.
+          {carat}
         </span>
       </div>
 
@@ -30,12 +25,12 @@ export default function PriceCard({ Karat, label, price, purity, isPure = false 
       </p>
 
       <p className="text-xs text-gray-400 mt-1">
-        per gram · {purity} pure · incl. 16.5% charges
+        {unit} · {purity} pure
       </p>
 
-      {!isPure && (
+      {note && (
         <p className="text-xs text-gray-400 mt-2 pt-2 border-t border-gray-100">
-          = {purity} × 24K price
+          {note}
         </p>
       )}
     </div>

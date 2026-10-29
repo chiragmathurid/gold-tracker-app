@@ -1,6 +1,6 @@
 # 💰 Gold & Silver Prices
 
-A modern and responsive web application that displays **live Gold and Silver prices per gram** in **Indian Rupees (₹)** for multiple purity levels (Karats). The application automatically refreshes prices every 5 minutes and provides an easy comparison across different karats.
+A modern and responsive web application that displays **live Gold and Silver prices** in **Indian Rupees (₹)** for multiple purity levels (Carats). Rates are streamed live from the [Lawat Jewellers live rate page](http://www.lawatjewellers.com/liverate.html) and update the moment the site changes them.
 
 ![Project Screenshot](./screenshot.png)
 
@@ -9,21 +9,21 @@ A modern and responsive web application that displays **live Gold and Silver pri
 ## ✨ Features
 
 - 📈 Live Gold & Silver prices
-- 💎 Supports multiple gold purities
+- 💎 Supports multiple gold purities (per 10 g)
   - 24K (Pure)
   - 22K
   - 18K
+  - 14K
   - 9K
-  - 1K
-- 🥈 Silver prices
-  - 24K (Pure)
-  - 22K
+- 🥈 Silver prices (per kg)
+  - .999 (Pure)
+  - 92.5
 - 🇮🇳 Prices displayed in Indian Rupees (₹)
-- 🔄 Auto refresh every 5 minutes
-- 🔃 Manual "Refresh Now" button
+- 🔄 Live updates over a socket connection
+- 🔃 Manual "Reconnect" button
 - 📱 Fully responsive design
 - 🎨 Clean card-based UI
-- 🧮 Automatic karat price calculation from 24K price
+- 🧮 Automatic carat price calculation from 24K price
 
 ---
 
@@ -39,10 +39,9 @@ A modern and responsive web application that displays **live Gold and Silver pri
 
 ## 🚀 Tech Stack
 
-- HTML5
-- CSS3
-- JavaScript (ES6)
-- GoldAPI (Live Metal Prices API)
+- React + Vite
+- Tailwind CSS
+- socket.io-client (live rate stream)
 
 ---
 
@@ -58,7 +57,7 @@ src/
 ├── hooks/
 │   └── useMetalPrices.js
 ├── services/
-│   └── goldApi.js
+│   └── liveRates.js
 ├── App.jsx
 └── index.css
 
@@ -80,53 +79,59 @@ Navigate to the project folder
 cd gold-silver-prices
 ```
 
-Open the project
+Install dependencies and start the dev server
 
 ```bash
-index.html
+npm install
+npm run dev
 ```
 
-Or use Live Server in VS Code.
+Then open http://localhost:5173/
 
 ---
 
-## 🔑 API Configuration
+## 🔑 Rate Source
 
-This project uses **GoldAPI** to fetch live gold and silver prices.
+Rates come from the [Lawat Jewellers live rate page](http://www.lawatjewellers.com/liverate.html), which streams them over socket.io. No API key is needed. The app uses the **SELL** rate of:
 
-Create a configuration file or update your JavaScript with your API key:
+- **GOLD RTGS 99.50** as the 24 carat gold rate (per 10 g)
+- **Silver .999 RTGS** as the pure silver rate (per kg)
 
-```javascript
-const API_KEY = "YOUR_API_KEY";
-```
+See `src/services/liveRates.js`.
 
 ---
 
 ## 📊 Price Calculation
 
-All karat prices are calculated from the live **24K (Pure)** price.
+All carat prices are calculated from the live **24 carat** rate (GOLD RTGS 99.50).
 
 Formula:
 
 ```
-Price (N Karat) = (N / 24) × Price (24 Karat)
+Price (N Carat) = 24 Carat rate ÷ 24 × N
 ```
 
 Example:
 
 ```
-22K Price = (22 / 24) × 24K Price
+18K Price = 145779 ÷ 24 × 18 = 1,09,334.25
+```
+
+92.5 silver is calculated from the Silver .999 RTGS rate:
+
+```
+92.5 Silver = .999 rate × 92.5%
 ```
 
 Purity Chart
 
-| Karat | Purity |
+| Carat | Purity |
 |-------|---------|
-| 24K | 100% |
+| 24K | 99.5% |
 | 22K | 91.67% |
 | 18K | 75% |
+| 14K | 58.33% |
 | 9K | 37.5% |
-| 1K | 4.17% |
 
 ---
 
@@ -136,8 +141,8 @@ Purity Chart
 - Golden theme
 - Responsive grid
 - Price highlighting
-- Auto refresh timer
-- Manual refresh button
+- Live rate updates
+- Manual reconnect button
 - Live update timestamp
 
 ---
@@ -153,15 +158,11 @@ The application is optimized for:
 
 ---
 
-## 🔄 Auto Refresh
+## 🔄 Live Updates
 
-The application automatically updates prices every:
+Prices update automatically whenever the rate source pushes a new rate.
 
-```
-5 Minutes
-```
-
-Users can also refresh instantly using the **Refresh Now** button.
+If the connection drops, use the **Reconnect** button.
 
 ---
 
@@ -213,7 +214,7 @@ This project is licensed under the MIT License.
 
 ## 🙌 Acknowledgements
 
-- GoldAPI for live precious metal prices
+- Lawat Jewellers for live precious metal rates
 - Open-source community
 - All contributors
 

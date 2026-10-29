@@ -6,7 +6,7 @@ export default function Header() {
           Gold & Silver Prices
         </h1>
         <p className="text-yellow-100 mt-2 text-sm">
-          Live prices per gram · Indian Rupees (₹) · All Karats compared to 24K pure
+          Live prices · Indian Rupees (₹) · Gold per 10 g · Silver per kg
         </p>
       </div>
     </header>
