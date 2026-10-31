@@ -1,14 +1,17 @@
 import Header from './components/Header';
 import MetalSection from './components/MetalSection';
 import LoadingSpinner from './components/LoadingSpinner';
+import CitySelector from './components/CitySelector';
 import { useMetalPrices } from './hooks/useMetalPrices';
+import { useCity } from './hooks/useCity';
 
 export default function App() {
   const { goldPrices, silverPrices, loading, error, lastUpdated, refetch } = useMetalPrices();
+  const { city, setCity } = useCity();
 
   return (
     <div className="min-h-screen bg-gray-50">
-      <Header />
+      <Header city={city} />
 
       <main className="max-w-5xl mx-auto px-4 py-8">
 
@@ -22,6 +25,8 @@ export default function App() {
           ) : (
             <span>Loading prices for the first time...</span>
           )}
+
+          <CitySelector city={city} onChange={setCity} />
 
           <button
             onClick={refetch}
